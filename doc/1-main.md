@@ -1,46 +1,58 @@
-# NPM Package Template
+# json-map
 
-You wrote a sweet piece of code! Releasing it on [NPM](https://www.npmjs.com/)
-seems like the obvious next step. Right?
+Retrieve an object from a JSON map that overrides an optional default.
 
-_Try it!_ Not as easy to do as you might think. At high quality. From scratch.
+To install, run:
 
-So here's a plug-and-play NPM package template that offers the following
-features:
+```
+npm install @karmaniverous/json-map
+```
 
-- Tree-shakable support for the latest ES6 goodies with
-  [`eslint`](https://www.npmjs.com/package/eslint) _uber alles_.
+This package is particularly useful when retrieving values from a config file.
+For example, assume the following config file `config.js`:
 
-- CJS distributions targeting specific browser support scenarios.
+```json
+{
+  "default": {
+    "a": 1,
+    "b": 2
+  },
+  "map": {
+    "dev": {
+      "b": 3,
+      "c": 4
+    },
+    "test": {
+      "b": 5,
+      "c": 6
+    }
+  }
+}
+```
 
-- Command line interfaces for your widget with
-  [`commander`](https://www.npmjs.com/package/commander).
+You could then write this code:
 
-- Automated [`lodash`](https://www.npmjs.com/package/lodash) cherry-picking with
-  [`babel-plugin-lodash`](https://www.npmjs.com/package/babel-plugin-lodash).
+```js
+import { jsonMap } from '@karmaniverous/json-map';
 
-- [`mocha`](https://www.npmjs.com/package/mocha) &
-  [`chai`](https://www.npmjs.com/package/chai) for testing, with examples, and a
-  sweet testing console.
+// Load the config file.
+import config from './config.js' assert { type: 'json' };
 
-- In-code access to
-  [`package.json`](https://github.com/karmaniverous/npm-package-template/blob/main/package.json)
-  data, with no warnings to ignore.
+// Pull the 'dev' config, which overrides the default value.
+console.log(jsonMap(config, 'dev'));
 
-- Code formatting at every save & paste with
-  [`prettier`](https://www.npmjs.com/package/prettier).
+// { a: 1, b: 3, c: 4 }
 
-- Automated documentation of your API with
-  [`jsdoc-to-markdown`](https://www.npmjs.com/package/jsdoc-to-markdown) and
-  assembly of your README with
-  [`concat-md`](https://www.npmjs.com/package/concat-md).
+// Pull the 'test' config, which overrides the default value.
+console.log(jsonMap(config, 'test'));
 
-- One-button release to GitHub & publish to NPM with
-  [`release-it`](https://www.npmjs.com/package/release-it).
+// { a: 1, b: 5, c: 6 }
+```
 
-**[Click here](https://karmanivero.us/blog/npm-package-template/) for full
-documentation & instructions!**
+The `default` and `map` tokens may be customized as described in the
+[API Documentation](#API-Documentation) below.
 
-_If you want to create a React component in an NPM package, use my
-[React Component NPM Package Template](https://github.com/karmaniverous/react-component-npm-package-template)
-instead!_
+`jsonMap` behaves gracefully when the input `default` or `map`, or the `key`
+argument, is undefined. See the
+[unit tests](https://github.com/karmaniverous/json-map/blob/main/lib/jsonMap.test.js)
+for more info.
