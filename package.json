@@ -12,7 +12,7 @@
   "bugs": {
     "url": "https://github.com/karmaniverous/json-map/issues"
   },
-  "description": "An ES6 NPM package project template featuring a CLI, test support, automated API docs, release management & more!",
+  "description": "Retrieve an object from a JSON map that overrides an optional default.",
   "homepage": "https://github.com/karmaniverous/json-map#readme",
   "keywords": [
     "json",
