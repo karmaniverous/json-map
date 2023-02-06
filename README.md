@@ -52,8 +52,8 @@ console.log(jsonMap(config, 'test'));
 The `default` and `map` tokens may be customized as described in the
 [API Documentation](#API-Documentation) below.
 
-'jsonMap` behaves gracefully when the default, map, or key are undefined. See
-the
+`jsonMap` behaves gracefully when the input `default` or `map`, or the `key`
+argument, is undefined. See the
 [unit tests](https://github.com/karmaniverous/json-map/blob/main/lib/jsonMap.test.js)
 for more info.
 
